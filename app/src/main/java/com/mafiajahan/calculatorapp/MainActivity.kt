@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             for (button in numberButtons) {
                 button.setOnClickListener {
                     val value = button.text.toString()
-                    // Prevent multiple decimal points
+                   
                     if (value == "." && currentInput.contains(".")) {
                         return@setOnClickListener
                     }
                     currentInput += value
                     updateDisplay()
-//                    binding.inputNumber.text = currentInput
+
                 }
             }
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             setOperator(btnDivide, "/")
 
             btnEqual.setOnClickListener {
-                // Check if we have both numbers and an operator
+               
                 if (currentInput.isEmpty() || operator.isEmpty() || firstNumber == 0.0)
                     return@setOnClickListener
 
@@ -68,18 +68,15 @@ class MainActivity : AppCompatActivity() {
                     else -> secondNumber
                 }
 
-                // Show the complete calculation before showing result
+              
                 updateDisplay()
                 binding.result.text = formatNumber(resultValue)
 
-                // Reset for next calculation
-                // The result becomes the first number for next operation
                 firstNumber = if (resultValue.isNaN()) 0.0 else resultValue
                 currentInput = ""
                 operator = ""
 
-                // After equals, show the result as current input
-                //binding.inputNumber.text = formatNumber(firstNumber)
+                
 
             }
 
@@ -93,13 +90,13 @@ class MainActivity : AppCompatActivity() {
 
             btnBackspace.setOnClickListener {
                 if (currentInput.isNotEmpty()) {
-                    // Remove the last character
+                  
                     currentInput = currentInput.substring(0, currentInput.length - 1)
                     updateDisplay()
                 } else if (operator.isNotEmpty()) {
-                    // If currentInput is empty, allow deleting the operator
+              
                     operator = ""
-                    // Move the firstNumber back to currentInput to allow editing it
+                    
                     currentInput = formatNumber(firstNumber)
                     firstNumber = 0.0
                     updateDisplay()
@@ -113,12 +110,12 @@ private fun updateDisplay() {
     val firstNumStr = formatNumber(firstNumber)
 
     if (operator.isEmpty()) {
-        // No operator selected, show current input or 0
+   
         binding.inputNumber.text = currentInput.ifEmpty {
             if (firstNumber != 0.0) firstNumStr else "0"
         }
     } else {
-        // Operator selected, show full expression
+   
         val secondNumStr = currentInput.ifEmpty { "" }
         binding.inputNumber.text = "$firstNumStr $operator $secondNumStr"
     }
@@ -126,17 +123,17 @@ private fun updateDisplay() {
 
     private fun setOperator(buttonId: AppCompatButton, newOperator: String) {
         buttonId.setOnClickListener {
-            // If we have current input, set it as first number
+         
             if (currentInput.isNotEmpty()) {
                 firstNumber = currentInput.toDouble()
                 currentInput = ""
                 operator = newOperator
             }
-            // If we already have a first number but no current input (e.g., after equals)
+            
             else if (firstNumber != 0.0 && currentInput.isEmpty() && operator.isEmpty()) {
                 operator = newOperator
             }
-            // If we already have an operator, allow changing it
+        
             else if (operator.isNotEmpty()) {
                 operator = newOperator
             }
@@ -149,7 +146,7 @@ private fun updateDisplay() {
         return if (number % 1.0 == 0.0) {
             number.toLong().toString()
         } else {
-            // Remove trailing zeros
+            
             String.format("%.10f", number).trimEnd('0').trimEnd('.')
         }
     }
