@@ -109,31 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun updateDisplay() {
-//        val firstNumStr = if (firstNumber % 1.0 == 0.0) firstNumber.toLong().toString() else firstNumber.toString()
-//
-//        if (operator.isEmpty()) {
-//            binding.inputNumber.text = currentInput.ifEmpty { "0" }
-//        } else {
-//            binding.inputNumber.text = "$firstNumStr $operator $currentInput"
-//        }
-//    }
-//
-//    private fun  setOperator(buttonId: AppCompatButton, operator: String){
-//        buttonId.setOnClickListener {
-//            if (currentInput.isNotEmpty()) {
-//                firstNumber = currentInput.toDouble()
-//                currentInput = ""
-//                this.operator = operator
-//                //binding.inputNumber.text = operator
-//                updateDisplay()
-//            }else if (operator.isNotEmpty()) {
-//                // Allow changing operator if one is already selected
-//                this.operator = operator
-//                updateDisplay()
-//            }
-//    }
-//    }
 private fun updateDisplay() {
     val firstNumStr = formatNumber(firstNumber)
 
